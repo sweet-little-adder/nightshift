@@ -1,0 +1,10 @@
+{
+  "signals": {
+    "api-503": {"service": "checkout-api", "kind": "error_rate", "summary": "503 rate rose from 0.2% to 8% over 15 minutes", "severity": "high"},
+    "queue-lag": {"service": "worker", "kind": "latency", "summary": "queue age reached 12 minutes", "severity": "medium"}
+  },
+  "runbooks": {
+    "checkout-errors": {"services": ["checkout-api"], "checks": ["Compare 5xx by deployment version.", "Inspect upstream timeout metrics.", "Escalate to the on-call engineer if errors persist."]},
+    "worker-backlog": {"services": ["worker"], "checks": ["Check worker concurrency and dead-letter volume.", "Inspect the oldest queued job before replaying anything."]}
+  }
+}
